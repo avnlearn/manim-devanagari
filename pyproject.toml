@@ -4,7 +4,7 @@ version = "1.0.0"
 description = "Manim plugin for devanagari"
 authors = [{ name = "AvN Learn", "email" = "avnlearn@gmail.com" }]
 maintainers = [{ name = "Mr. Raj", email = "mr.raj3010@gmail.com" }]
-license = "MIT"
+license = { file = "LICENSE" }
 readme = "README.md"
 packages = [{ include = "manim_devanagari" }]
 keywords = ["manim", "devanagari", "hindi", "sanskrit"]
