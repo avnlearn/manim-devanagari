@@ -1,0 +1,24 @@
+[project]
+name = "manim-devanagari"
+version = "1.0.0"
+description = "Manim plugin for devanagari"
+authors = [{ name = "AvN Learn", "email" = "avnlearn@gmail.com" }]
+maintainers = [{ name = "Mr. Raj", email = "mr.raj3010@gmail.com" }]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "manim_devanagari" }]
+keywords = ["manim", "devanagari", "hindi", "sanskrit"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+]
+
+dependencies = ["mamin"]
+
+
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project.urls]
+repository = "https://github.com/avnlearn/manim-devanagari.git"
