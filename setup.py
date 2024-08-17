@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="manim_devangari",
+    name="manim_devanagari",
     version="1.0",
     author="AvN Learn",
     author_email="avnlearn@gmail.com",
