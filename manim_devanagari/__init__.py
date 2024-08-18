@@ -23,7 +23,7 @@ Classes
 
 from manim import *
 
-__version__ = "1.0.3"
+__version__ = "1.0.4"
 
 devanagari = TexTemplate(
     tex_compiler="xelatex",
@@ -133,7 +133,7 @@ class Solution_Header(Text):
 
 
 class Cancel(VGroup):
-    """
+    r"""
 
     Cancel is `\cancel` same worked
 

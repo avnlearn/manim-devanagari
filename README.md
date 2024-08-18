@@ -2,7 +2,17 @@
 
 Manim plugin for adding devanagari script.
 
-# Using Devanagari
+# Table of Contents:
+
+* [Installation](#installation)
+* [Usage Devanagari](#usage-devanagari)
+
+# Installation
+
+* Install `pip install manim`
+* Install font - `Noto Sans` and `Noto Sans Devanagari`
+
+# Usage Devanagari
 
 ## Devanagari Template
 
@@ -26,7 +36,7 @@ class DevanagariTex(Scene):
         self.add(dev_tex)
 ```
 
-![DevanagariTex](assets/images/1.png)
+![DevanagariTex](https://github.com/avnlearn/manim-devanagari/blob/master/assets/images/1.png?raw=true)
 
 ## Devanagari Class
 
@@ -60,7 +70,7 @@ class Devanagari_ClassTex(Scene):
         self.add(dev_tex)
 ```
 
-![Devanagari_ClassTex](assets/images/2.png)
+![Devanagari_ClassTex](https://github.com/avnlearn/manim-devanagari/blob/master/assets/images/2.png?raw=true)
 
 ## Cancel Class
 
@@ -89,7 +99,7 @@ class Cancel_Math(Scene):
         self.add(manim_devanagari.Cancel(cancel_tex[1][3]))
 ```
 
-![Cancel_Math](assets/images/3.png)
+![Cancel_Math](https://github.com/avnlearn/manim-devanagari/blob/master/assets/images/3.png?raw=true)
 
 ## Addition Feature
 
@@ -133,4 +143,4 @@ class Addition_feature(Scene):
         self.add(cancel_tex, footer)
 ```
 
-![Addition_feature](assets/images/4.png)
+![Addition_feature](https://github.com/avnlearn/manim-devanagari/blob/master/assets/images/4.png?raw=true)
