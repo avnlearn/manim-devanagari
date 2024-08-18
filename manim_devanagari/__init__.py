@@ -23,7 +23,7 @@ Classes
 
 from manim import *
 
-__version__ = "1.0.4"
+__version__ = "1.0.5"
 
 devanagari = TexTemplate(
     tex_compiler="xelatex",
