@@ -1,10 +1,30 @@
 """
-Devanagari package for manim
+Devanagari plugin for manim
+
+Attribute
+---------
+
+* _FONT_NAME
+* devanagari
+* __version__
+
+Classes
+-------
+
+* `Deva_Tex(tex_string, ....)` is normal mode (`Tex`)
+* `Deva_MathTex(tex_string, ....)` is math mode (`MathTex`)
+* `Deva_Text(text_string, ...)` is non-LaTeX string (`Text`)
+* `Deva_MarkupText(text_string, ...)` is non-LaTeX string (`MarkupText`)
+* `Question_Header(question_no,...)` is Question Header
+* `Solution_Header(ans, ...)` is Solution
+* `Cancel(...)` is cancel mobject
+
 """
 
 from manim import *
 
-__version__ = "1.0.2"
+__version__ = "1.0.3"
+
 devanagari = TexTemplate(
     tex_compiler="xelatex",
     output_format=".xdv",
@@ -17,19 +37,22 @@ _FONT_NAME = "sans-serif"
 
 
 class Deva_Tex(Tex):
-    '''Devanagari and English string compiled with LaTeX in normal mode.'''
+    """Devanagari and English string compiled with LaTeX in normal mode."""
+
     def __init__(self, *args, font_size=20, **kwargs):
         super().__init__(*args, tex_template=devanagari, font_size=font_size, **kwargs)
 
 
 class Deva_MathTex(MathTex):
-    '''Devanagari and English string compiled with LaTeX in math mode.'''
+    """Devanagari and English string compiled with LaTeX in math mode."""
+
     def __init__(self, *args, font_size=20, **kwargs):
         super().__init__(*args, tex_template=devanagari, font_size=font_size, **kwargs)
 
 
 class Deva_Text(Text):
     """Display (non-LaTeX) text rendered using Pango ."""
+
     def __init__(self, *args, font=_FONT_NAME, font_size=16, **kwargs):
         super().__init__(*args, font=font, font_size=font_size, **kwargs)
 
@@ -51,11 +74,17 @@ class Deva_MarkupText(MarkupText):
 
     .. manim:: MarkupExample :save_last_frame:
     """
+
     def __init__(self, *args, font=_FONT_NAME, font_size=15, **kwargs):
         super().__init__(*args, font=font, font_size=font_size, **kwargs)
 
 
 class Question_Header(Text):
+    """Question Header
+    Args:
+        question_no (int): Question Number
+    """
+
     def __init__(
         self,
         question_no,
@@ -77,6 +106,12 @@ class Question_Header(Text):
 
 
 class Solution_Header(Text):
+    """Question Header
+    Args:
+        ans (bool): Default True is 'उत्तर' and False is 'हल'
+
+    """
+
     def __init__(
         self,
         ans=True,
@@ -98,6 +133,15 @@ class Solution_Header(Text):
 
 
 class Cancel(VGroup):
+    """
+
+    Cancel is `\cancel` same worked
+
+    Args:
+        mobject (Mobject): Manim Object
+
+    """
+
     def __init__(
         self,
         mobject: Mobject | None = None,
@@ -111,21 +155,3 @@ class Cancel(VGroup):
             self.replace(mobject, stretch=True)
         self.scale(scale_factor)
         self.set_stroke(color=stroke_color, width=stroke_width)
-
-
-class Footer(Rectangle):
-    def __init__(
-        height=0.8,
-        stroke_opacity: float = 0,
-        fill_color=GREEN,
-        fill_opacity=1,
-        z_index=1,
-        **kwargs,
-    ):
-        super().__init__(
-            stroke_opacity=stroke_opacity,
-            fill_color=fill_color,
-            fill_opacity=fill_opacity,
-            z_index=z_index,
-            **kwargs,
-        )
