@@ -6,3 +6,5 @@ media/
 *.egg-info
 dist
 dist/
+.venv/
+.venv

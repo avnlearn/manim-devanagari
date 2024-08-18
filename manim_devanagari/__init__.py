@@ -1,6 +1,10 @@
+"""
+Devanagari package for manim
+"""
+
 from manim import *
 
-__version__ = "1.0"
+__version__ = "1.0.2"
 devanagari = TexTemplate(
     tex_compiler="xelatex",
     output_format=".xdv",
@@ -13,21 +17,40 @@ _FONT_NAME = "sans-serif"
 
 
 class Deva_Tex(Tex):
+    '''Devanagari and English string compiled with LaTeX in normal mode.'''
     def __init__(self, *args, font_size=20, **kwargs):
         super().__init__(*args, tex_template=devanagari, font_size=font_size, **kwargs)
 
 
 class Deva_MathTex(MathTex):
+    '''Devanagari and English string compiled with LaTeX in math mode.'''
     def __init__(self, *args, font_size=20, **kwargs):
         super().__init__(*args, tex_template=devanagari, font_size=font_size, **kwargs)
 
 
 class Deva_Text(Text):
+    """Display (non-LaTeX) text rendered using Pango ."""
     def __init__(self, *args, font=_FONT_NAME, font_size=16, **kwargs):
         super().__init__(*args, font=font, font_size=font_size, **kwargs)
 
 
 class Deva_MarkupText(MarkupText):
+    """
+    Display (non-LaTeX) text rendered using Pango .
+
+    Text objects behave like a VGroup-like iterable of all characters in the given text. In particular, slicing is possible.
+
+    What is PangoMarkup?
+
+    PangoMarkup is a small markup language like html and it helps you avoid using "range of characters" while coloring or styling a piece a Text. You can use this language with ~.MarkupText.
+
+    A simple example of a marked-up string might be
+
+    <span foreground="blue" size="x-large">Blue text</span> is <i>cool</i>!"
+    and it can be used with ~.MarkupText as
+
+    .. manim:: MarkupExample :save_last_frame:
+    """
     def __init__(self, *args, font=_FONT_NAME, font_size=15, **kwargs):
         super().__init__(*args, font=font, font_size=font_size, **kwargs)
 
