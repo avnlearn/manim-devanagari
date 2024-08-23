@@ -25,7 +25,7 @@ from manim import *
 
 __version__ = "1.0.5"
 
-devanagari = TexTemplate(
+_Devanagari = TexTemplate(
     tex_compiler="xelatex",
     output_format=".xdv",
     documentclass="\\documentclass[preview]{standalone}",
@@ -35,26 +35,61 @@ devanagari = TexTemplate(
 _FONT_NAME = "sans-serif"
 # _FONT_NAME="Noto Sans"
 
+_SET_COLOR = BLACK
+_SET_QUESTION_COLOR = RED
+_SET_SOLUTION_COLOR = GREEN_E
+
+_SET_FONT_SIZE = 35
+
+
+_LIGHT_MODE = False
+if _LIGHT_MODE:
+    config.background_color = WHITE
+    _SET_COLOR = WHITE
+
+_SET_TEX_FONT_SIZE = _SET_FONT_SIZE - 5
+_SET_TEXT_FONT_SIZE = _SET_TEX_FONT_SIZE - 4
+_SET_MARKUPTEXT_FONT_SIZE = _SET_TEX_FONT_SIZE - 5
+
+
+class Tex(Tex):
+    def __init__(self, *args, font_size=_SET_TEX_FONT_SIZE, color=_SET_COLOR, **kwargs):
+        super().__init__(*args, color=color, font_size=font_size, **kwargs)
+
 
 class Deva_Tex(Tex):
     """Devanagari and English string compiled with LaTeX in normal mode."""
 
-    def __init__(self, *args, font_size=20, **kwargs):
-        super().__init__(*args, tex_template=devanagari, font_size=font_size, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, tex_template=_Devanagari, **kwargs)
+
+
+class MathTex(MathTex):
+    def __init__(self, *args, font_size=_SET_TEX_FONT_SIZE, color=_SET_COLOR, **kwargs):
+        super().__init__(*args, color=color, font_size=font_size, **kwargs)
 
 
 class Deva_MathTex(MathTex):
     """Devanagari and English string compiled with LaTeX in math mode."""
 
-    def __init__(self, *args, font_size=20, **kwargs):
-        super().__init__(*args, tex_template=devanagari, font_size=font_size, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, tex_template=_Devanagari, **kwargs)
+
+
+class Text(Text):
+    """Display (non-LaTeX) text rendered using Pango ."""
+
+    def __init__(
+        self, *args, font_size=_SET_TEXT_FONT_SIZE, color=_SET_COLOR, **kwargs
+    ):
+        super().__init__(*args, color=color, font_size=font_size, **kwargs)
 
 
 class Deva_Text(Text):
     """Display (non-LaTeX) text rendered using Pango ."""
 
-    def __init__(self, *args, font=_FONT_NAME, font_size=16, **kwargs):
-        super().__init__(*args, font=font, font_size=font_size, **kwargs)
+    def __init__(self, *args, font=_FONT_NAME, **kwargs):
+        super().__init__(*args, font=font, **kwargs)
 
 
 class Deva_MarkupText(MarkupText):
@@ -75,8 +110,32 @@ class Deva_MarkupText(MarkupText):
     .. manim:: MarkupExample :save_last_frame:
     """
 
-    def __init__(self, *args, font=_FONT_NAME, font_size=15, **kwargs):
-        super().__init__(*args, font=font, font_size=font_size, **kwargs)
+    def __init__(
+        self, *args, color=_SET_COLOR, font_size=_SET_MARKUPTEXT_FONT_SIZE, **kwargs
+    ):
+        super().__init__(*args, color=color, font_size=font_size, **kwargs)
+
+
+class Deva_MarkupText(MarkupText):
+    """
+    Display (non-LaTeX) text rendered using Pango .
+
+    Text objects behave like a VGroup-like iterable of all characters in the given text. In particular, slicing is possible.
+
+    What is PangoMarkup?
+
+    PangoMarkup is a small markup language like html and it helps you avoid using "range of characters" while coloring or styling a piece a Text. You can use this language with ~.MarkupText.
+
+    A simple example of a marked-up string might be
+
+    <span foreground="blue" size="x-large">Blue text</span> is <i>cool</i>!"
+    and it can be used with ~.MarkupText as
+
+    .. manim:: MarkupExample :save_last_frame:
+    """
+
+    def __init__(self, *args, font=_FONT_NAME, **kwargs):
+        super().__init__(*args, font=font, **kwargs)
 
 
 class Question_Header(Text):
@@ -90,7 +149,7 @@ class Question_Header(Text):
         question_no,
         font=_FONT_NAME,
         font_size=30,
-        color=RED,
+        color=_SET_QUESTION_COLOR,
         weight=BOLD,
         **kwargs,
     ):
@@ -105,7 +164,7 @@ class Question_Header(Text):
         )
 
 
-class Solution_Header(Text):
+class Solution(Text):
     """Question Header
     Args:
         ans (bool): Default True is 'उत्तर' and False is 'हल'
@@ -114,22 +173,143 @@ class Solution_Header(Text):
 
     def __init__(
         self,
-        ans=True,
         font=_FONT_NAME,
         font_size=25,
-        color=GREEN,
+        color=_SET_SOLUTION_COLOR,
         weight=BOLD,
         **kwargs,
     ):
 
         super().__init__(
-            "उत्तर :" if ans else "हल :",
+            text="हल :",
             font=font,
             font_size=font_size,
             color=color,
             weight=weight,
             **kwargs,
         )
+
+
+class Solution_Group(VGroup):
+    r"""
+
+    Solution_Group : Solution Group
+
+    Structure
+        [
+            Group(Solution, line),
+            *args
+        ]
+
+    """
+
+    def __init__(
+        self,
+        line: str = Text(""),
+        *args,
+        solution_header_kwargs: dict = {},
+        first_kwargs: dict = {},
+        **kwargs,
+    ):
+
+        super().__init__(
+            VGroup(Solution(**solution_header_kwargs), line, **first_kwargs).arrange(
+                RIGHT
+            ),
+            *args,
+            **kwargs,
+        )
+
+
+class Solution_VGroup(VGroup):
+    r"""
+
+    Solution_VGroup : Solution VGroup
+
+    Structure
+        [
+            Solution,
+            *args
+        ]
+
+    """
+
+    def __init__(self, *args, solution_header_kwargs: dict = {}, **kwargs):
+        super().__init__(Solution(**solution_header_kwargs), *args, **kwargs)
+
+
+class Answer(Text):
+    """Question Header
+    Args:
+        ans (bool): Default True is 'उत्तर' and False is 'हल'
+
+    """
+
+    def __init__(
+        self,
+        font=_FONT_NAME,
+        font_size=25,
+        color=_SET_SOLUTION_COLOR,
+        weight=BOLD,
+        **kwargs,
+    ):
+
+        super().__init__(
+            text="उत्तर :",
+            font=font,
+            font_size=font_size,
+            color=color,
+            weight=weight,
+            **kwargs,
+        )
+
+
+class Answer_Group(VGroup):
+    r"""
+
+    Solution_Group : Solution Group
+
+    Structure
+        [
+            Group(Solution, line),
+            *args
+        ]
+
+    """
+
+    def __init__(
+        self,
+        line: str = Text(""),
+        *args,
+        solution_header_kwargs: dict = {},
+        first_kwargs: dict = {},
+        **kwargs,
+    ):
+
+        super().__init__(
+            VGroup(Answer(**solution_header_kwargs), line, **first_kwargs).arrange(
+                RIGHT
+            ),
+            *args,
+            **kwargs,
+        )
+
+
+class Answer_VGroup(VGroup):
+    r"""
+
+    Solution_VGroup : Solution VGroup
+
+    Structure
+        [
+            Solution,
+            *args
+        ]
+
+    """
+
+    def __init__(self, *args, solution_header_kwargs: dict = {}, **kwargs):
+        super().__init__(Answer(**solution_header_kwargs), *args, **kwargs)
 
 
 class Cancel(VGroup):
@@ -155,3 +335,29 @@ class Cancel(VGroup):
             self.replace(mobject, stretch=True)
         self.scale(scale_factor)
         self.set_stroke(color=stroke_color, width=stroke_width)
+
+
+class Question_Group(VGroup):
+    r"""
+    Question_Group : Question Group
+
+    Structure
+        [
+            Question(id),
+            *args
+        ]
+
+    """
+
+    def __init__(self, id=0, *args, question_header_kwargs: dict = {}, **kwargs):
+        super().__init__(
+            Question_Header(question_no=id, **question_header_kwargs), *args, **kwargs
+        )
+
+
+def Str_Join(*args: str, space=False, **kwargs):
+    args = [str(i) for i in args]
+    return (" " if space else "\n").join(args)
+
+
+Bookmark = lambda mark: "<bookmark mark='{}'/>".format(mark)
