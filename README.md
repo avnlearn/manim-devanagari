@@ -4,13 +4,13 @@ Manim plugin for adding devanagari script.
 
 # Table of Contents:
 
-* [Installation](#installation)
-* [Usage Devanagari](#usage-devanagari)
+- [Installation](#installation)
+- [Usage Devanagari](#usage-devanagari)
 
 # Installation
 
-* Install `pip install manim`
-* Install font - `Noto Sans` and `Noto Sans Devanagari`
+- Install `pip install manim`
+- Install font - `Noto Sans` and `Noto Sans Devanagari`
 
 # Usage Devanagari
 
@@ -144,3 +144,65 @@ class Addition_feature(Scene):
 ```
 
 ![Addition_feature](https://github.com/avnlearn/manim-devanagari/blob/master/assets/images/4.png?raw=true)
+
+# Light Mode and Custom Font Size
+
+```python
+from manim_devanagari import *
+
+_LIGHT_MODE = True # Light Mode is true
+config.background_color = WHITE
+_SET_FONT_SIZE = 30
+```
+
+# Groups
+
+## Question Group
+
+```python
+Question_Group(question_number, item_1, item_2, ..., item_n)
+```
+
+```python
+Question_Group(question_number, item_1, item_2, ..., item_n)
+```
+
+## Solution Group
+
+```python
+Solution_Group((question_number, item_1), item_2, ..., item_n)
+```
+
+```python
+Solution_VGroup(question_number, item_1,(item_2, ..., item_n))
+```
+
+## Answer Group
+
+```python
+Answer_Group((question_number, item_1), item_2, ..., item_n)
+```
+
+```python
+Answer_VGroup(question_number, item_1,(item_2, ..., item_n))
+```
+
+# String
+
+## String Join
+
+Space or newline is defalult
+
+```python
+Str_Join(item_1,item_2, ..., item_n, space=False)
+```
+
+## Bookmark
+
+```python
+Bookmark(mark)
+```
+
+```
+<bookmark mark='{mark}'>
+```
