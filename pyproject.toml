@@ -5,7 +5,7 @@ description = "Devanagari plugin for manim"
 authors = ["AvN Learn <avnlearn@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{ include = "manim_voiceover" }]
+packages = [{ include = "manim_devanagari" }]
 repository = "https://github.com/avnlearn/manim-devanagari"
 homepage = "https://github.com/avnlearn/manim-devanagari"
 documentation = "https://github.com/avnlearn/manim-devanagari/blob/master/README.md"
