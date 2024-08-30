@@ -1,17 +1,35 @@
-[build-system]
-requires = ["flit_core >=3.2,<4"]
-build-backend = "flit_core.buildapi"
-
-[project]
-name = "manim_devanagari"
-authors = [{ name = "AvN Learn", email = "avnlearn@gmail.com" }]
+[tool.poetry]
+name = "manim-devanagari"
+version = "0.1.0"
+description = "Devanagari plugin for manim"
+authors = ["AvN Learn <avnlearn@gmail.com>"]
+license = "MIT"
 readme = "README.md"
-license = { file = "LICENSE" }
-dependencies= [
-    "manim"
+packages = [{ include = "manim_voiceover" }]
+repository = "https://github.com/avnlearn/manim-devanagari"
+homepage = "https://github.com/avnlearn/manim-devanagari"
+documentation = "https://github.com/avnlearn/manim-devanagari/blob/master/README.md"
+keywords = ["davanagari", "hindi", "latex", "latex cancel tag", "manim"]
+classifiers = [
+    "Development Status :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Multimedia :: Video",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
 ]
-classifiers = ["License :: OSI Approved :: MIT License"]
-dynamic = ["version", "description"]
 
-[project.urls]
-Home = "https://github.com/avnlearn/manim-devanagari.git"
+[tool.poetry.dependencies]
+python = ">=3.9,<3.13"
+manim = "^0.18.1"
+
+[tool.poetry.plugins."manim.plugins"]
+manim_devanagari = "manim_devanagari"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
