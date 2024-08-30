@@ -36,7 +36,7 @@ class DevanagariTex(Scene):
         self.add(dev_tex)
 ```
 
-![DevanagariTex](https://github.com/avnlearn/manim-devanagari/blob/master/assets/images/1.png?raw=true)
+![DevanagariTex](https://github.com/avnlearn/manim-devanagari/beta/assets/images/1.png?raw=true)
 
 ## Devanagari Class
 
@@ -70,7 +70,7 @@ class Devanagari_ClassTex(Scene):
         self.add(dev_tex)
 ```
 
-![Devanagari_ClassTex](https://github.com/avnlearn/manim-devanagari/blob/master/assets/images/2.png?raw=true)
+![Devanagari_ClassTex](https://github.com/avnlearn/manim-devanagari/beta/assets/images/2.png?raw=true)
 
 ## Cancel Class
 
@@ -99,7 +99,7 @@ class Cancel_Math(Scene):
         self.add(manim_devanagari.Cancel(cancel_tex[1][3]))
 ```
 
-![Cancel_Math](https://github.com/avnlearn/manim-devanagari/blob/master/assets/images/3.png?raw=true)
+![Cancel_Math](https://github.com/avnlearn/manim-devanagari/beta/assets/images/3.png?raw=true)
 
 ## Addition Feature
 
@@ -143,7 +143,7 @@ class Addition_feature(Scene):
         self.add(cancel_tex, footer)
 ```
 
-![Addition_feature](https://github.com/avnlearn/manim-devanagari/blob/master/assets/images/4.png?raw=true)
+![Addition_feature](https://github.com/avnlearn/manim-devanagari/beta/assets/images/4.png?raw=true)
 
 # Light Mode and Custom Font Size
 
