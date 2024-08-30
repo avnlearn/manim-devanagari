@@ -11,7 +11,7 @@ homepage = "https://github.com/avnlearn/manim-devanagari"
 documentation = "https://github.com/avnlearn/manim-devanagari/blob/master/README.md"
 keywords = ["davanagari", "hindi", "latex", "latex cancel tag", "manim"]
 classifiers = [
-    "Development Status :: 3",
+    "Development Status :: 3 - Alpha",
     "License :: OSI Approved :: MIT License",
     "Topic :: Scientific/Engineering",
     "Topic :: Multimedia :: Video",
