@@ -338,12 +338,11 @@ class AnswerText(Text):
         weight (str): The weight of the text. Defaults to BOLD.
 
     Example:
-        answer = AnswerText(1, lang="en")
+        answer = AnswerText(lang="en")
         self.add(answer)
     """
     def __init__(
         self,
-        question_no: int,
         lang="en",
         font_size=25,
         color=GREEN_E,
