@@ -21,9 +21,11 @@ Classes
 
 """
 
+import manimpango
 from manim import *
 
 __version__ = "2.0.0"
+
 
 _Devanagari = TexTemplate(
     tex_compiler="xelatex",
@@ -31,6 +33,7 @@ _Devanagari = TexTemplate(
     documentclass="\\documentclass[preview]{standalone}",
     preamble="\\usepackage{fontspec}\n\\usepackage{polyglossia}\n\\usepackage{cancel}\n\\setmainlanguage{english}\n\\setotherlanguage{hindi}\\setmainfont[Script=Devanagari]{Noto Sans}\n\\usepackage{amsmath}\n\\usepackage{amssymb}",
 )
+
 
 _FONT_NAME = "sans-serif"
 # _FONT_NAME="Noto Sans"
