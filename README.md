@@ -52,7 +52,7 @@ class Deva_1_Template(Scene):
         self.add(dev_tex)
 ```
 
-![](assets/images/Deva_1_Template_ManimCE_v0.18.1.png)
+![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Deva_1_Template_ManimCE_v0.18.1.png)
 
 ```python
 
@@ -69,7 +69,7 @@ class Deva_2_MObject(Scene):
         self.add(dev_tex)
 ```
 
-![](assets/images/Deva_2_MObject_ManimCE_v0.18.1.png)
+![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Deva_2_MObject_ManimCE_v0.18.1.png)
 
 ```python
 
@@ -88,7 +88,7 @@ class Deva_3_CancelMath(Scene):
         self.add(m_deva.Cancel(cancel_tex[1][3]))
 ```
 
-![](assets/images/Deva_3_CancelMath_ManimCE_v0.18.1.png)
+![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Deva_3_CancelMath_ManimCE_v0.18.1.png)
 
 ## Footer
 
@@ -105,7 +105,7 @@ class Deva_4_SpecialText(Scene):
         self.add(cancel_tex, footer)
 ```
 
-![](assets/images/Deva_4_SpecialText_ManimCE_v0.18.1.png)
+![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Deva_4_SpecialText_ManimCE_v0.18.1.png)
 
 ```python
 
@@ -120,7 +120,7 @@ class Deva_5_Footer(Scene):
         self.add(cancel_tex, footer)
 ```
 
-![](assets/images/Deva_5_Footer_ManimCE_v0.18.1.png)
+![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Deva_5_Footer_ManimCE_v0.18.1.png)
 
 ## Bold
 
@@ -137,7 +137,7 @@ class Deva_6_Bold(m_deva.Themes):
         self.add(cancel_tex)
 ```
 
-![](assets/images/Deva_6_Bold_ManimCE_v0.18.1.png)
+![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Deva_6_Bold_ManimCE_v0.18.1.png)
 
 # Theme
 
@@ -154,7 +154,7 @@ class Deva_7_Theme(m_deva.Themes):
         self.add(cancel_tex)
 ```
 
-![](assets/images/Deva_7_Theme_ManimCE_v0.18.1.png)
+![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Deva_7_Theme_ManimCE_v0.18.1.png)
 
 # Usage Notebook
 
@@ -200,7 +200,7 @@ class Notebook_0(Scene):
         self.add(m)
 ```
 
-![](assets/images/Notebook_0_ManimCE_v0.18.1.png)
+![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Notebook_0_ManimCE_v0.18.1.png)
 
 ```python
 
@@ -237,7 +237,7 @@ class Notebook_1(Scene):
         self.add(m)
 ```
 
-![](assets/images/Notebook_1_ManimCE_v0.18.1.png)
+![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Notebook_1_ManimCE_v0.18.1.png)
 
 ## Example 2
 
@@ -288,7 +288,7 @@ class Notebook_2(Scene):
         self.add(m)
 ```
 
-![](assets/images/Notebook_2_ManimCE_v0.18.1.png)
+![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Notebook_2_ManimCE_v0.18.1.png)
 
 ## Example 3
 
@@ -339,7 +339,7 @@ class Notebook_3(Scene):
         self.add(m)
 ```
 
-![](assets/images/Notebook_3_ManimCE_v0.18.1.png)
+![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Notebook_3_ManimCE_v0.18.1.png)
 
 ## Example 4
 
@@ -390,7 +390,7 @@ class Notebook_3(Scene):
         self.add(m)
 ```
 
-![](assets/images/Notebook_4_ManimCE_v0.18.1.png)
+![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Notebook_4_ManimCE_v0.18.1.png)
 
 ## Example 5
 
@@ -446,4 +446,4 @@ class Notebook_4(Scene):
         self.add(m)
 ```
 
-![](assets/images/Notebook_4_ManimCE_v0.18.1.png)
+![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Notebook_4_ManimCE_v0.18.1.png)
