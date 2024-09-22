@@ -303,7 +303,7 @@ class QuestionText(Text):
         """
         text = {"hi": "प्रश्‍न"}.get(lang, "Question")
         if question_no:
-            text = "{} {}:".format(text, question_no)
+            text = "{} {} :".format(text, question_no)
         else:
             text = f"{text} :"
 
@@ -334,7 +334,6 @@ class AnswerText(Text):
     def __init__(
         self,
         lang="en",
-        font_size=25,
         color=GREEN_E,
         weight=BOLD,
         **kwargs,
@@ -383,7 +382,6 @@ class SolutionText(Text):
     def __init__(
         self,
         lang="en",
-        font_size=25,
         color=GREEN_E,
         weight=BOLD,
         **kwargs,
@@ -501,6 +499,6 @@ class Themes(Scene):
         MarkupText.set_default(font=font, font_size=font_size)
         Tex.set_default(font_size=font_size)
         MathTex.set_default(font_size=font_size)
-        Deva_Tex.set_default(font=font, font_size=font_size)
-        Deva_MathTex.set_default(font=font, font_size=font_size)
+        Deva_Tex.set_default(font_size=font_size)
+        Deva_MathTex.set_default(font_size=font_size)
         Deva_MarkupText.set_default(font=font, font_size=font_size)

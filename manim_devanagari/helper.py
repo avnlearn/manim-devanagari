@@ -126,42 +126,6 @@ def is_latex(text: str) -> bool:
     return bool(re.search(latex_pattern, text))
 
 
-def check_text_type(text: str) -> str:
-    """
-    Determine the type of text: Hindi, English, LaTeX, or mixed.
-
-    Args:
-        text (str): The input text to analyze.
-
-    Returns:
-        str: A string indicating the type of text:
-            - "Hindi"
-            - "English"
-            - "LaTeX"
-            - "Mixed (Hindi and English)"
-            - "All Mixed (Hindi, English, LaTeX)"
-            - "Unknown"
-    """
-    has_hindi = is_hindi(text)
-    has_english = not is_english(
-        text
-    )  # If it contains non-English characters, it's not purely English
-    has_latex = is_latex(text)
-
-    if has_hindi and has_english and has_latex:
-        return "All Mixed (Hindi, English, LaTeX)"
-    elif has_hindi and has_english:
-        return "Mixed (Hindi and English)"
-    elif has_hindi:
-        return "hi"
-    elif has_english:
-        return "en"
-    elif has_latex:
-        return "LaTeX"
-    else:
-        return "Unknown"
-
-
 def is_math_mode_inline(text: str) -> bool:
     return text.startswith("$") and text.endswith("$")
 
@@ -216,14 +180,13 @@ def _str_to_mobject_convert(text: str) -> VMobject:
         is_str_inline_math = contains_inline_math(text)
         is_hindi_str = is_hindi(text)
         is_math_mode_display_str = is_math_mode_display(text)
-        is_math_mode_str = is_math_mode_inline(text)
         is_markuptext = is_html(text)
         if is_hindi_str:
             if is_math_mode_display_str:
                 return Deva_MathTex_Display(text[2:-2].strip())
-            elif is_math_mode_str:
-                return Deva_MathTex(text[1:-1].strip())
             elif is_latex_str or is_str_inline_math:
+                if is_math_mode_inline(text):
+                    return Deva_Tex(text[1:-1].strip())
                 return Deva_Tex(text)
             elif is_markuptext:
                 return Deva_MarkupText(text)
@@ -234,9 +197,9 @@ def _str_to_mobject_convert(text: str) -> VMobject:
         else:
             if is_math_mode_display_str:
                 return MathTex_Display(text[2:-2].strip())
-            elif is_math_mode_str:
-                return MathTex(text[1:-1].strip())
             elif is_latex_str or is_str_inline_math:
+                if is_math_mode_inline(text):
+                    return Deva_Tex(text[1:-1].strip())
                 return Tex(text)
             elif is_markuptext:
                 return MarkupText(text)
@@ -251,14 +214,13 @@ def _str_to_mobject_convert(text: str) -> VMobject:
         is_str_inline_math = contains_inline_math(str_lst)
         is_hindi_str = is_hindi(str_lst)
         is_math_mode_display_str = is_math_mode_display(str_lst)
-        is_math_mode_str = is_math_mode_inline(str_lst)
         is_markuptext = is_html(str_lst)
         if is_hindi_str:
             if is_math_mode_display_str:
                 return Deva_MathTex_Display(*text[1:-1])
-            elif is_math_mode_str:
-                return Deva_MathTex(*text[1:-1])
             elif is_latex_str or is_str_inline_math:
+                if is_math_mode_inline(str_lst):
+                    return Deva_Tex(text[1:-1])
                 return Deva_Tex(*text)
             elif is_markuptext:
                 return Deva_MarkupText(str_lst)
@@ -269,9 +231,9 @@ def _str_to_mobject_convert(text: str) -> VMobject:
         else:
             if is_math_mode_display_str:
                 return MathTex_Display(*text[1:-1])
-            elif is_math_mode_str:
-                return MathTex(*text[1:-1])
             elif is_latex_str or is_str_inline_math:
+                if is_math_mode_inline(str_lst):
+                    return Deva_Tex(text[1:-1])
                 return Tex(*text)
             elif is_markuptext:
                 return MarkupText(str_lst)
@@ -286,19 +248,35 @@ def _str_to_mobject(*vmobjects: VMobject) -> Sequence[VMobject]:
     return tuple(_str_to_mobject_convert(vmobject) for vmobject in vmobjects)
 
 
-def Str_Join(*args: str, space=False, **kwargs):
-    """Join strings with a specified separator (space or newline).
+def mobject_to_text(mobject: Mobject) -> str():
+    # Tex() or MathTex()
+    match type(mobject).__name__:
+        case "VGroup":
+            m_str = []
+            for m in mobject:
+                m = mobject_to_text(m)
+                if m:
+                    m_str.append(m)
+            return "\n".join(m_str)
+        # Tex
+        case "Deva_Tex" | "Tex":
+            return mobject.get_tex_string()
+        # Text
+        case "Deva_Text" | "Text":
+            return mobject.original_text
+        # Paragraph
+        case "Deva_Paragraph" | "Paragraph":
+            return mobject.lines_text.original_text
+        # MarkupText
+        case "Deva_MarkupText" | "MarkupText":
+            return mobject.lines_text.original_text
+        case _:
+            return str(mobject)
 
-    Args:
-        *args: Strings to be joined.
-        space (bool): If True, join with a space; otherwise, join with a newline. Default is False.
-        **kwargs: Additional keyword arguments (not used).
 
-    Returns:
-        str: The joined string.
-    """
-    args = [str(i) for i in args]
-    return (" " if space else "\n").join(args)
+def mobject_str(*vmobjects, space=False, **kwargs):
+    vmobjects = [mobject_to_text(vmobject) for vmobject in vmobjects]
+    return (" " if space else "\n").join(vmobjects)
 
 
 if __name__ == "__main__":
