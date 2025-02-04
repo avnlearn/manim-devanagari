@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "manim-devanagari"
-version = "0.0.5"
+version = "0.0.6"
 description = "Devanagari plugin for manim"
 authors = ["AvN Learn <avnlearn@gmail.com>"]
 license = "MIT"
@@ -24,8 +24,8 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.13"
-manim = "^0.18.1"
+python = ">=3.9,<3.14"
+manim = ">=3.18.1,<3.19.0"
 
 [tool.poetry.plugins."manim.plugins"]
 manim_devanagari = "manim_devanagari"

@@ -1,12 +1,14 @@
-::: {.cell .code execution_count="1"}
-
-:::
-
 # Manim Devangari
 
 Manim plugin for adding devanagari script.
 
-# Table of Contents:
+## Installation
+
+- Install `pip install manim`
+- Install font - `Noto Sans` and `Noto Sans Devanagari`
+- Install `pip install manim-devanagari`
+
+## Table of Contents:
 
 - [Manim Devangari](#manim-devangari)
 - [Table of Contents:](#table-of-contents)
@@ -23,14 +25,9 @@ Manim plugin for adding devanagari script.
   - [Example 4](#example-4)
   - [Example 5](#example-5)
 
-# Installation
+## Usage Devanagari
 
-- Install `pip install manim`
-- Install font - `Noto Sans` and `Noto Sans Devanagari`
-
-# Usage Devanagari
-
-## Using Devanagari Template
+### Using Devanagari Template
 
 ```python
 from manim import *
@@ -90,7 +87,7 @@ class Deva_3_CancelMath(Scene):
 
 ![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Deva_3_CancelMath_ManimCE_v0.18.1.png)
 
-## Footer
+### Footer
 
 ```python
 
@@ -122,7 +119,7 @@ class Deva_5_Footer(Scene):
 
 ![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Deva_5_Footer_ManimCE_v0.18.1.png)
 
-## Bold
+### Bold
 
 ```python
 
@@ -139,7 +136,7 @@ class Deva_6_Bold(m_deva.Themes):
 
 ![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Deva_6_Bold_ManimCE_v0.18.1.png)
 
-# Theme
+## Theme
 
 ```python
 
@@ -156,14 +153,14 @@ class Deva_7_Theme(m_deva.Themes):
 
 ![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Deva_7_Theme_ManimCE_v0.18.1.png)
 
-# Usage Notebook
+## Usage Notebook
 
 ```python
 from manim import *
 from manim_devanagari.notebook import Notebook, cue_column, Question, Answer, Solution
 ```
 
-## Example 1
+### Example 1
 
 Only String value
 
@@ -239,7 +236,7 @@ class Notebook_1(Scene):
 
 ![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Notebook_1_ManimCE_v0.18.1.png)
 
-## Example 2
+### Example 2
 
 ```python
 
@@ -290,7 +287,7 @@ class Notebook_2(Scene):
 
 ![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Notebook_2_ManimCE_v0.18.1.png)
 
-## Example 3
+### Example 3
 
 ```python
 
@@ -341,7 +338,7 @@ class Notebook_3(Scene):
 
 ![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Notebook_3_ManimCE_v0.18.1.png)
 
-## Example 4
+### Example 4
 
 ```python
 
@@ -392,7 +389,7 @@ class Notebook_3(Scene):
 
 ![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Notebook_4_ManimCE_v0.18.1.png)
 
-## Example 5
+### Example 5
 
 ```python
 
@@ -447,3 +444,9 @@ class Notebook_4(Scene):
 ```
 
 ![](https://raw.githubusercontent.com/avnlearn/manim-devanagari/refs/heads/main/assets/images/Notebook_4_ManimCE_v0.18.1.png)
+
+## More Examples
+
+- [Sets](https://avnlearn.com/sets/)
+- [YouTube](https://www.youtube.com/@avnlearn)
+- [Web Story](https://avnlearn.com/web-stories/mathematics-set-theory/)

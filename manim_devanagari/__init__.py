@@ -389,7 +389,6 @@ class SolutionText(Text):
         super().__init__(
             text=self.language(lang),
             color=color,
-            font_size=font_size,
             weight=weight,
             **kwargs,
         )
