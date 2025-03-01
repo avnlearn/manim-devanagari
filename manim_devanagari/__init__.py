@@ -501,3 +501,374 @@ class Themes(Scene):
         Deva_Tex.set_default(font_size=font_size)
         Deva_MathTex.set_default(font_size=font_size)
         Deva_MarkupText.set_default(font=font, font_size=font_size)
+
+
+def rand_color(id=0, scene: Scene = None):
+    # [background_color, color, question_color, card_background, sub_card_background]
+    colors = []
+
+    match id:
+        case "yt":
+            config.background_color = WHITE
+            Text.set_default(color=BLACK)
+            SingleStringMathTex.set_default(color=BLACK)
+            Tex.set_default(color=BLACK)
+            MarkupText.set_default(color=BLACK)
+
+            colors = [
+                ManimColor("#16a34a"),
+                ManimColor("#2563eb"),
+                ManimColor("#4f46e5"),
+                ManimColor("#84cc16"),
+                ManimColor("#f97316"),
+            ]
+            if isinstance(scene, Scene):
+                scene.camera.background_color = config.background_color
+
+        case 0:
+            colors = [
+                DARKER_GREY,
+                WHITE,
+                PURE_RED,
+                ManimColor("#052e16"),
+                ManimColor("#f97316"),
+            ]
+        case 1:
+            color = [
+                WHITE,
+                BLACK,
+                ManimColor("#F9BF09"),
+                ManimColor("#E43F49"),
+                ManimColor("#2a013d"),
+                ManimColor("#f97316"),
+            ]
+        case 2:
+            color = [
+                ManimColor.from_hex("#141c33"),
+                ManimColor.from_hex("#eff5fa"),
+                ManimColor.from_hex("#E43F49"),
+                ManimColor.from_hex("#2a013d"),
+                ManimColor.from_hex("#f97316"),
+            ]
+        case 3:
+            color = [
+                ManimColor.from_hex("#f1f1f1"),
+                ManimColor.from_hex("#F9BF09"),
+                ManimColor.from_hex("#E43F49"),
+                ManimColor.from_hex("#2a013d"),
+                ManimColor.from_hex("#f97316"),
+            ]
+        case 4:
+            color = [
+                ManimColor.from_hex("#f1f1f1"),
+                ManimColor.from_hex("#F9BF09"),
+                ManimColor.from_hex("#E43F49"),
+                ManimColor.from_hex("#2a013d"),
+                ManimColor.from_hex("#f97316"),
+            ]
+
+    return tuple(colors)
+
+
+def video_font_size(key=config["quality"], font_size=20):
+    match key:
+        case "low_quality":
+            font_size = 40
+            Matrix.set_default(
+                v_buff=0.5,
+                h_buff=0.5,
+                bracket_h_buff=SMALL_BUFF,
+                bracket_v_buff=SMALL_BUFF,
+            )
+            MobjectMatrix.set_default(
+                v_buff=0.6,
+                h_buff=1.8,
+                bracket_h_buff=SMALL_BUFF,
+                bracket_v_buff=SMALL_BUFF,
+            )
+        case "fourk_quality":
+            font_size = 30
+            Matrix.set_default(
+                v_buff=0.8,
+                h_buff=0.7,
+                bracket_h_buff=SMALL_BUFF,
+                bracket_v_buff=SMALL_BUFF,
+            )
+            MobjectMatrix.set_default(
+                v_buff=0.6,
+                h_buff=1.8,
+                bracket_h_buff=SMALL_BUFF,
+                bracket_v_buff=SMALL_BUFF,
+            )
+            header_font_size = font_size + 10
+            Text.set_default(font_size=font_size - 5, font="sans-serif")
+            MarkupText.set_default(font_size=font_size - 7, font="sans-serif")
+            Tex.set_default(font_size=font_size)
+            MathTex.set_default(font_size=font_size)
+            return (font_size, header_font_size)
+        case None if config["pixel_height"] == 1920 and config["pixel_width"] == 1080:
+            font_size = 20
+            Matrix.set_default(
+                v_buff=0.3,
+                h_buff=0.5,
+                bracket_h_buff=SMALL_BUFF,
+                bracket_v_buff=SMALL_BUFF,
+            )
+            MobjectMatrix.set_default(
+                v_buff=0.5,
+                h_buff=0.9,
+                bracket_h_buff=SMALL_BUFF,
+                bracket_v_buff=SMALL_BUFF,
+            )
+
+    header_font_size = font_size + 10
+    Text.set_default(font_size=font_size, font="Noto Sans")
+    MarkupText.set_default(font_size=font_size, font="Noto Sans")
+    Tex.set_default(font_size=font_size)
+    MathTex.set_default(font_size=font_size)
+
+    return (font_size, header_font_size)
+
+
+class AvNLearnLogo(VGroup):
+    def __init__(self, font_size=30, **kwargs):
+        super().__init__(**kwargs)
+        self.create_logo(font_size)
+
+    def create_logo(self, font_size):
+
+        # Create the "AvN" part of the logo
+        avn_text = m_deva.Deva_Tex(r"\textbf{AvN}", font_size=font_size, color=GREEN_D)
+
+        # Create the "learn" part of the logo
+        learn_text = m_deva.Deva_Tex("learn", font_size=font_size - 12, color=ORANGE)
+
+        # Arrange the texts vertically
+        self.add(avn_text, learn_text)
+        self.arrange(DOWN, buff=0.01)
+
+        # # Optional: Add a background rectangle
+        # background = Rectangle(
+        #     width=avn_text.width + 0.5,
+        #     height=avn_text.height + learn_text.height + 0.5,
+        #     color=WHITE,
+        #     fill_opacity=0.5
+        # )
+        # self.add(background)
+        # self.move_to(background.get_center())
+        # self.add_to_back(background)  # Add background behind the text
+
+
+class AvnBackground(RoundedRectangle):
+    r"""A rectangle background a :class:`~.Mobject`
+
+    Examples
+    --------
+    .. manim:: AvnBackgroundExample
+        :save_last_frame:
+
+        class SurroundingRectExample(Scene):
+            def construct(self):
+                title = Title("A Quote from Newton")
+                quote = Text(
+                    "If I have seen further than others, \n"
+                    "it is by standing upon the shoulders of giants.",
+                    color=BLUE,
+                ).scale(0.75)
+                box = AvnBackground(quote, color=YELLOW, buff=MED_LARGE_BUFF)
+
+                t2 = Tex(r"Hello World").scale(1.5)
+                box2 = AvnBackground(t2, corner_radius=0.2)
+                mobjects = VGroup(VGroup(box, quote), VGroup(t2, box2)).arrange(DOWN)
+                self.add(title, mobjects)
+    """
+
+    def __init__(
+        self,
+        *mobjects: Mobject,
+        color: ParsableManimColor | None = ManimColor("#14532d"),
+        stroke_width: float = 0,
+        stroke_opacity: float = 0,
+        fill_opacity: float = 1.0,
+        buff: float = SMALL_BUFF,
+        corner_radius: float = 0.0,
+        line_stroke_width: int = 3,
+        **kwargs,
+    ):
+        from manim.mobject.mobject import Group
+
+        if not all(isinstance(mob, Mobject) for mob in mobjects):
+            raise TypeError(
+                "Expected all inputs for parameter mobjects to be a Mobjects"
+            )
+
+        group = Group(*mobjects)
+        super().__init__(
+            color=color,
+            stroke_width=stroke_width,
+            stroke_opacity=stroke_opacity,
+            fill_opacity=fill_opacity,
+            width=config.frame_width,
+            height=group.height + 2 * buff,
+            corner_radius=corner_radius,
+            **kwargs,
+        )
+        self.buff = buff
+        self.match_y(group)
+        self.add(
+            Underline(
+                self,
+                buff=0,
+                stroke_width=line_stroke_width,
+                color=ManimColor("#dc2626"),
+            )
+        )
+
+
+class TitleBackground(VGroup):
+    def __init__(
+        self,
+        text: str,
+        bold: bool = True,
+        color: ParsableManimColor = WHITE,
+        bg_color: list[ParsableManimColor] = [ORANGE, GREEN_E],
+        line_color: ParsableManimColor = PURE_RED,
+        font_size: int = 48,
+        text_buff: float = MED_LARGE_BUFF,
+        bg_buff: float = 0.0,
+        buff: float = MED_SMALL_BUFF,
+        corner_radius: float = 0.0,
+        **kwargs,
+    ):
+        super().__init__(**kwargs)
+
+        # Create the title text
+
+        title = m_deva.Deva_Tex(
+            r"\textbf{" + text + r"}" if bold else str(text),
+            color=color,
+            font_size=font_size,
+        )
+
+        # Create the background rectangle
+        rect = RoundedRectangle(
+            width=config.frame_width - bg_buff,  # Add some padding
+            height=title.height + text_buff,  # Add some padding
+            color=bg_color,
+            stroke_opacity=0.0,
+            fill_color=bg_color,
+            fill_opacity=1.0,
+            corner_radius=corner_radius,
+        )
+
+        # Position the rectangle behind the title
+        rect.move_to(title.get_center())
+
+        # Add the rectangle and title to the group
+        self.add(
+            rect,
+            title,
+            Underline(
+                rect, color=line_color, buff=0.0, stroke_width=5, stroke_opacity=0.8
+            ),
+        )
+        title.to_edge(LEFT, buff=LARGE_BUFF)
+
+
+class SubtitleBackground(VGroup):
+    def __init__(
+        self,
+        text: str,
+        bold: bool = True,
+        color: ParsableManimColor = WHITE,
+        bg_color: list[ParsableManimColor] = [ORANGE, GREEN_E],
+        font_size: int = 30,
+        bg_buff: float = MED_LARGE_BUFF,
+        buff: float = MED_SMALL_BUFF,
+        corner_radius: float = 0.0,
+        **kwargs,
+    ):
+        super().__init__(**kwargs)
+
+        # Create the title text
+
+        title = m_deva.Deva_Tex(
+            r"\textbf{" + text + r"}" if bold else str(text),
+            color=color,
+            font_size=font_size,
+        )
+
+        # Create the background rectangle
+        rect = RoundedRectangle(
+            width=title.width + bg_buff,  # Add some padding
+            height=title.height + bg_buff,  # Add some padding
+            color=bg_color,
+            stroke_opacity=0,
+            fill_color=bg_color,
+            fill_opacity=1.0,
+            corner_radius=corner_radius,
+        )
+
+        # Position the rectangle behind the title
+        rect.move_to(title.get_center())
+
+        # Add the rectangle and title to the group
+        self.add(
+            rect,
+            title,
+            Underline(rect, color=GRAY, buff=0.0, stroke_width=5, stroke_opacity=0.5),
+        )
+        # title.to_edge(LEFT, buff=LARGE_BUFF)
+
+
+class YouTube_Like_Subscribe_Comment(VGroup):
+    def __init__(self, font_size=30, direction=DOWN, buff=LARGE_BUFF, **kwargs):
+        super().__init__(**kwargs)
+        self.like_subscribe_comment(font_size, direction, buff)
+
+    def like_subscribe_comment(self, font_size, direction, buff):
+        self.add(m_deva.Deva_Tex(r"\textbf{Like}", font_size=font_size))
+        self.add(
+            Rectangle(
+                color=BS381.BRILLIANT_GREEN,
+                fill_opacity=1.0,
+                stroke_width=0,
+                width=0.02,
+                height=0.3,
+            )
+        )
+        self.add(
+            VGroup(
+                RoundedRectangle(
+                    color=PURE_RED,
+                    fill_opacity=1.0,
+                    width=0.9,
+                    height=0.3,
+                    corner_radius=0.05,
+                    stroke_color=PURE_RED,
+                ),
+                m_deva.Deva_Tex(r"\textbf{Subscribe}", font_size=font_size),
+            )
+        )
+        self.add(
+            Rectangle(
+                color=BS381.BRILLIANT_GREEN,
+                fill_opacity=1.0,
+                stroke_width=0,
+                width=0.02,
+                height=0.3,
+            )
+        )
+        self.add(m_deva.Deva_Tex(r"\textbf{Comment}", font_size=font_size))
+        self.add(
+            Rectangle(
+                color=BS381.BRILLIANT_GREEN,
+                fill_opacity=1.0,
+                stroke_width=0,
+                width=0.02,
+                height=0.3,
+            )
+        )
+        self.add(m_deva.Deva_Tex(r"\textbf{Share}", font_size=font_size))
+        self.arrange(buff=MED_SMALL_BUFF)
+        self.to_edge(direction, buff=buff)
