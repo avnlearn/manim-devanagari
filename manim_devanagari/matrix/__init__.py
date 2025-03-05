@@ -1,3 +1,7 @@
+from manim import *
+from manim_devanagari import Deva_MathTex
+from typing_extensions import Iterable
+
 class MatrixDimension(VGroup):
     def __init__(
         self,
@@ -22,7 +26,7 @@ class MatrixDimension(VGroup):
                 m = len(_matrix[0])
                 n = len(_matrix[0][0])
 
-            dimension = m_deva.Deva_MathTex(
+            dimension = Deva_MathTex(
                 (r"\textbf" if m_bold else r"\text") + r"{" + str(m) + "}",
                 r"\times",
                 (r"\textbf" if n_bold else r"\text") + r"{" + str(n) + "}",

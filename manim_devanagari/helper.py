@@ -3,6 +3,14 @@ from manim import *
 import manimpango
 import functools
 from typing import Sequence
+from manim_devanagari.design import (
+    QuestionText,
+    SolutionText,
+    AnswerText,
+    Deva_QuestionText,
+    Deva_AnswerText,
+    Deva_SolutionText,
+)
 from manim_devanagari import (
     Text,
     Paragraph,
@@ -10,18 +18,12 @@ from manim_devanagari import (
     Tex,
     MathTex,
     MathTex_Display,
-    QuestionText,
-    SolutionText,
-    AnswerText,
     Deva_Text,
     Deva_MarkupText,
     Deva_Paragraph,
     Deva_Tex,
     Deva_MathTex,
     Deva_MathTex_Display,
-    Deva_QuestionText,
-    Deva_AnswerText,
-    Deva_SolutionText,
 )
 
 # @functools.lru_cache(maxsize=None)
@@ -289,6 +291,3 @@ if __name__ == "__main__":
         # Mixed (Hindi, English, LaTeX)
         r"This is a LaTeX document with Hindi: \textbf{नमस्ते}",
     ]
-
-    for sample in text_samples:
-        print(f"'{sample}' is of type: {check_text_type(sample)}")

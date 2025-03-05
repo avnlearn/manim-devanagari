@@ -1,5 +1,5 @@
 from manim import *
-
+from manim_devanagari import Deva_MathTex, Deva_Tex
 
 def Footer(
     width: float = None,
@@ -46,26 +46,12 @@ class AvNLearnLogo(VGroup):
 
     def create_logo(self, font_size):
 
-        # Create the "AvN" part of the logo
-        avn_text = m_deva.Deva_Tex(r"\textbf{AvN}", font_size=font_size, color=GREEN_D)
+        avn_text = Deva_Tex(r"\textbf{AvN}", font_size=font_size, color=GREEN_D)
 
-        # Create the "learn" part of the logo
-        learn_text = m_deva.Deva_Tex("learn", font_size=font_size - 12, color=ORANGE)
-
-        # Arrange the texts vertically
+        learn_text = Deva_Tex("learn", font_size=font_size - 12, color=ORANGE)
         self.add(avn_text, learn_text)
         self.arrange(DOWN, buff=0.01)
 
-        # # Optional: Add a background rectangle
-        # background = Rectangle(
-        #     width=avn_text.width + 0.5,
-        #     height=avn_text.height + learn_text.height + 0.5,
-        #     color=WHITE,
-        #     fill_opacity=0.5
-        # )
-        # self.add(background)
-        # self.move_to(background.get_center())
-        # self.add_to_back(background)  # Add background behind the text
 
 class AvnBackground(RoundedRectangle):
     r"""A rectangle background a :class:`~.Mobject`
@@ -152,7 +138,7 @@ class TitleBackground(VGroup):
 
         # Create the title text
 
-        title = m_deva.Deva_Tex(
+        title = Deva_Tex(
             r"\textbf{" + text + r"}" if bold else str(text),
             color=color,
             font_size=font_size,
@@ -200,7 +186,7 @@ class SubtitleBackground(VGroup):
 
         # Create the title text
 
-        title = m_deva.Deva_Tex(
+        title = Deva_Tex(
             r"\textbf{" + text + r"}" if bold else str(text),
             color=color,
             font_size=font_size,
@@ -235,7 +221,7 @@ class YouTube_Like_Subscribe_Comment(VGroup):
         self.like_subscribe_comment(font_size, direction, buff)
 
     def like_subscribe_comment(self, font_size, direction, buff):
-        self.add(m_deva.Deva_Tex(r"\textbf{Like}", font_size=font_size))
+        self.add(Deva_Tex(r"\textbf{Like}", font_size=font_size))
         self.add(
             Rectangle(
                 color=BS381.BRILLIANT_GREEN,
@@ -255,7 +241,7 @@ class YouTube_Like_Subscribe_Comment(VGroup):
                     corner_radius=0.05,
                     stroke_color=PURE_RED,
                 ),
-                m_deva.Deva_Tex(r"\textbf{Subscribe}", font_size=font_size),
+                Deva_Tex(r"\textbf{Subscribe}", font_size=font_size),
             )
         )
         self.add(
@@ -267,7 +253,7 @@ class YouTube_Like_Subscribe_Comment(VGroup):
                 height=0.3,
             )
         )
-        self.add(m_deva.Deva_Tex(r"\textbf{Comment}", font_size=font_size))
+        self.add(Deva_Tex(r"\textbf{Comment}", font_size=font_size))
         self.add(
             Rectangle(
                 color=BS381.BRILLIANT_GREEN,
@@ -277,7 +263,7 @@ class YouTube_Like_Subscribe_Comment(VGroup):
                 height=0.3,
             )
         )
-        self.add(m_deva.Deva_Tex(r"\textbf{Share}", font_size=font_size))
+        self.add(Deva_Tex(r"\textbf{Share}", font_size=font_size))
         self.arrange(buff=MED_SMALL_BUFF)
         self.to_edge(direction, buff=buff)
 
@@ -465,28 +451,81 @@ class Cancel(VGroup):
         self.set_stroke(color=stroke_color, width=stroke_width)
 
 
-class BoldTex(Tex):
-    def __init__(self, *tex_strings, **kwargs):
-        self.tex_string_original = " ".join(tex_strings)
-        tex_strings = self.set_bold(*tex_strings)
-        super().__init__(*tex_strings, **kwargs)
+def video_font_size(key=config["quality"], font_size=20):
+    match key:
+        case "low_quality":
+            font_size = 40
+            Matrix.set_default(
+                v_buff=0.5,
+                h_buff=0.5,
+                bracket_h_buff=SMALL_BUFF,
+                bracket_v_buff=SMALL_BUFF,
+            )
+            MobjectMatrix.set_default(
+                v_buff=0.6,
+                h_buff=1.8,
+                bracket_h_buff=SMALL_BUFF,
+                bracket_v_buff=SMALL_BUFF,
+            )
+        case "high_quality":
+            font_size = 30
+            Matrix.set_default(
+                v_buff=0.8,
+                h_buff=0.7,
+                bracket_h_buff=SMALL_BUFF,
+                bracket_v_buff=SMALL_BUFF,
+            )
+            MobjectMatrix.set_default(
+                v_buff=0.6,
+                h_buff=1.8,
+                bracket_h_buff=SMALL_BUFF,
+                bracket_v_buff=SMALL_BUFF,
+            )
+            header_font_size = font_size + 10
+            Text.set_default(font_size=font_size - 5)
+            MarkupText.set_default(font_size=font_size - 7)
+            Tex.set_default(font_size=font_size)
+            MathTex.set_default(font_size=font_size)
+            return (font_size, header_font_size)
+        case "fourk_quality":
+            font_size = 30
+            Matrix.set_default(
+                v_buff=0.8,
+                h_buff=0.7,
+                bracket_h_buff=SMALL_BUFF,
+                bracket_v_buff=SMALL_BUFF,
+            )
+            MobjectMatrix.set_default(
+                v_buff=0.6,
+                h_buff=1.8,
+                bracket_h_buff=SMALL_BUFF,
+                bracket_v_buff=SMALL_BUFF,
+            )
+            header_font_size = font_size + 10
+            Text.set_default(font_size=font_size - 5, font="sans-serif")
+            MarkupText.set_default(font_size=font_size - 7, font="sans-serif")
+            Tex.set_default(font_size=font_size)
+            MathTex.set_default(font_size=font_size)
+            return (font_size, header_font_size)
+        case None if config["pixel_height"] == 1920 and config["pixel_width"] == 1080:
+            font_size = 20
+            Matrix.set_default(
+                v_buff=0.3,
+                h_buff=0.5,
+                bracket_h_buff=SMALL_BUFF,
+                bracket_v_buff=SMALL_BUFF,
+            )
+            MobjectMatrix.set_default(
+                v_buff=0.5,
+                h_buff=0.9,
+                bracket_h_buff=SMALL_BUFF,
+                bracket_v_buff=SMALL_BUFF,
+            )
 
-    def set_bold(self, *tex_strings):
-        tex_strings = list(tex_strings)
-        tex_strings[0] = r"\textbf{" + tex_strings[0]
-        tex_strings[-1] = tex_strings[-1] + r"}"
-        return tuple(tex_strings)
+    header_font_size = font_size + 10
+    Text.set_default(font_size=font_size, font="Noto Sans")
+    MarkupText.set_default(font_size=font_size, font="Noto Sans")
+    Tex.set_default(font_size=font_size)
+    MathTex.set_default(font_size=font_size)
 
-
-class BoldMath(MathTex):
-    def __init__(self, *tex_strings, **kwargs):
-
-        self.tex_string_original = " ".join(tex_strings)
-        tex_strings = self.set_bold(*tex_strings)
-        super().__init__(*tex_strings, **kwargs)
-
-    def set_bold(self, *tex_strings):
-        tex_strings = list(tex_strings)
-        tex_strings[0] = r"\mathbf{" + tex_strings[0]
-        tex_strings[-1] = tex_strings[-1] + r"}"
-        return tuple(tex_strings)
+    return (font_size, header_font_size)

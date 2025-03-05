@@ -2,18 +2,40 @@ import textwrap
 from manim import *
 from typing import Sequence
 
-
+r"""
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{english}
+\setotherlanguage{hindi}
+\setmainfont[Script=Devanagari]{Noto Sans}
+\usepackage{cancel}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{dsfont}
+\usepackage{setspace}
+\usepackage{tipa}
+\usepackage{relsize}
+\usepackage{textcomp}
+\usepackage{mathrsfs}
+\usepackage{calligra}
+\usepackage{wasysym}
+\usepackage{ragged2e}
+\usepackage{physics}
+\usepackage{xcolor}
+\usepackage{microtype}
+"""
 noto_sans = TexTemplate(
     tex_compiler="xelatex",
     output_format=".xdv",
     preamble=r"""
     \usepackage{fontspec}
     \usepackage{polyglossia}
+    \usepackage{cancel}
     \setmainlanguage{english}
     \setotherlanguage{hindi}
     \setmainfont[Script=Devanagari]{Noto Sans}
     \usepackage{cancel}
-    \usepackage{lmodern}
     \usepackage{amsmath}
     \usepackage{amssymb}
     \usepackage{dsfont}
@@ -251,96 +273,28 @@ class Deva_Paragraph(Paragraph):
         super().__init__(*text, font=font, **kwargs)
 
 
-class Themes(Scene):
-    def set_theme(
-        self,
-        background_color=BLACK,
-        font="sans-serif",
-        font_size=DEFAULT_FONT_SIZE,
-        set_footer=True,
-        footer_color=WHITE,
-    ):
-        self.Footer = Footer(width=self.camera.frame_width, fill_color=footer_color)
-        if set_footer:
-            self.add(self.Footer)
-        match str(background_color):
-            case "#FFFFFF":
-                self.camera.background_color = background_color
-                _COLOR = BLACK
-                Text.set_default(color=_COLOR)
-                Paragraph.set_default(color=_COLOR)
-                MarkupText.set_default(color=_COLOR)
-                Tex.set_default(color=_COLOR)
-                MathTex.set_default(color=_COLOR)
-                Deva_Tex.set_default(color=_COLOR)
-                Deva_MathTex.set_default(color=_COLOR)
-                Deva_MarkupText.set_default(color=_COLOR)
+class BoldTex(Tex):
+    def __init__(self, *tex_strings, **kwargs):
+        self.tex_string_original = " ".join(tex_strings)
+        tex_strings = self.set_bold(*tex_strings)
+        super().__init__(*tex_strings, **kwargs)
 
-        Text.set_default(font=font, font_size=font_size)
-        Paragraph.set_default(font=font, font_size=font_size)
-        MarkupText.set_default(font=font, font_size=font_size)
-        Tex.set_default(font_size=font_size)
-        MathTex.set_default(font_size=font_size)
-        Deva_Tex.set_default(font_size=font_size)
-        Deva_MathTex.set_default(font_size=font_size)
-        Deva_MarkupText.set_default(font=font, font_size=font_size)
+    def set_bold(self, *tex_strings):
+        tex_strings = list(tex_strings)
+        tex_strings[0] = r"\textbf{" + tex_strings[0]
+        tex_strings[-1] = tex_strings[-1] + r"}"
+        return tuple(tex_strings)
 
 
-def video_font_size(key=config["quality"], font_size=20):
-    match key:
-        case "low_quality":
-            font_size = 40
-            Matrix.set_default(
-                v_buff=0.5,
-                h_buff=0.5,
-                bracket_h_buff=SMALL_BUFF,
-                bracket_v_buff=SMALL_BUFF,
-            )
-            MobjectMatrix.set_default(
-                v_buff=0.6,
-                h_buff=1.8,
-                bracket_h_buff=SMALL_BUFF,
-                bracket_v_buff=SMALL_BUFF,
-            )
-        case "fourk_quality":
-            font_size = 30
-            Matrix.set_default(
-                v_buff=0.8,
-                h_buff=0.7,
-                bracket_h_buff=SMALL_BUFF,
-                bracket_v_buff=SMALL_BUFF,
-            )
-            MobjectMatrix.set_default(
-                v_buff=0.6,
-                h_buff=1.8,
-                bracket_h_buff=SMALL_BUFF,
-                bracket_v_buff=SMALL_BUFF,
-            )
-            header_font_size = font_size + 10
-            Text.set_default(font_size=font_size - 5, font="sans-serif")
-            MarkupText.set_default(font_size=font_size - 7, font="sans-serif")
-            Tex.set_default(font_size=font_size)
-            MathTex.set_default(font_size=font_size)
-            return (font_size, header_font_size)
-        case None if config["pixel_height"] == 1920 and config["pixel_width"] == 1080:
-            font_size = 20
-            Matrix.set_default(
-                v_buff=0.3,
-                h_buff=0.5,
-                bracket_h_buff=SMALL_BUFF,
-                bracket_v_buff=SMALL_BUFF,
-            )
-            MobjectMatrix.set_default(
-                v_buff=0.5,
-                h_buff=0.9,
-                bracket_h_buff=SMALL_BUFF,
-                bracket_v_buff=SMALL_BUFF,
-            )
+class BoldMath(MathTex):
+    def __init__(self, *tex_strings, **kwargs):
 
-    header_font_size = font_size + 10
-    Text.set_default(font_size=font_size, font="Noto Sans")
-    MarkupText.set_default(font_size=font_size, font="Noto Sans")
-    Tex.set_default(font_size=font_size)
-    MathTex.set_default(font_size=font_size)
+        self.tex_string_original = " ".join(tex_strings)
+        tex_strings = self.set_bold(*tex_strings)
+        super().__init__(*tex_strings, **kwargs)
 
-    return (font_size, header_font_size)
+    def set_bold(self, *tex_strings):
+        tex_strings = list(tex_strings)
+        tex_strings[0] = r"\mathbf{" + tex_strings[0]
+        tex_strings[-1] = tex_strings[-1] + r"}"
+        return tuple(tex_strings)

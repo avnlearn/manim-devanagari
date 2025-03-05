@@ -4,11 +4,9 @@ from typing import Iterable, Sequence
 from typing_extensions import Self, TypeAlias
 from manim.typing import Vector3D
 from manim.mobject.opengl.opengl_vectorized_mobject import OpenGLVMobject
+from manim_devanagari.design import SolutionText, AnswerText, QuestionText
 from manim_devanagari.helper import (
-    _str_to_mobject,
-    SolutionText,
-    AnswerText,
-    QuestionText,
+    _str_to_mobject
 )
 
 
