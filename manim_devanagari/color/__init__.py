@@ -1,68 +1,66 @@
 from manim import *
 
 
-def rand_color(id=0, scene: Scene = None):
-    # [background_color, color, question_color, card_background, sub_card_background]
+AVN_COLOR_PROFILE = {
+    "green_screen": PURE_GREEN,
+    "blue_screen": PURE_BLUE,
+    "light": {
+        "background": WHITE,
+        "color": BLACK,
+        "primary": ManimColor("#166534"),
+        "secondary": ManimColor("#9A3412"),
+        "underline": ManimColor("#991B1B"),
+        "bold": ManimColor("#4338CA"),
+        "highlight": ManimColor("#92400E"),
+        "link": ManimColor("#1E40AF"),
+        "shape": ManimColor("#065F46"),
+        "cancel": ManimColor("#3F6212"),
+    },
+    "dark": {
+        "background": ManimColor("#1E293B"),
+        "color": WHITE,
+        "primary": ManimColor("#4ADE80"),
+        "secondary": ManimColor("#FDBA74"),
+        "underline": ManimColor("#EF4444"),
+        "bold": ManimColor("#2DD4BF"),
+        "highlight": ManimColor("#FACC15"),
+        "link": ManimColor("#7DD3FC"),
+        "shape": ManimColor("#34D399"),
+        "cancel": ManimColor("#84CC16"),
+    },
+}
+GREEN_SCREEN = AVN_COLOR_PROFILE["green_screen"]
+BLUE_SCREEN = AVN_COLOR_PROFILE["blue_screen"]
+DARK_THEME = AVN_COLOR_PROFILE["dark"]["background"]
+
+
+def rand_color(
+    id=0, scene: Scene = None, dark_theme: bool = False, chroma: bool = False
+):
+
     colors = []
 
     match id:
         case "yt":
-            config.background_color = WHITE
-            Text.set_default(color=BLACK)
-            SingleStringMathTex.set_default(color=BLACK)
-            Tex.set_default(color=BLACK)
-            MarkupText.set_default(color=BLACK)
-
             colors = [
-                ManimColor("#16a34a"),
-                ManimColor("#2563eb"),
-                ManimColor("#4f46e5"),
-                ManimColor("#84cc16"),
-                ManimColor("#f97316"),
+                AVN_COLOR_PROFILE["dark" if dark_theme else "light"][i]
+                for i in AVN_COLOR_PROFILE.get("dark" if dark_theme else "light")
             ]
-            if isinstance(scene, Scene):
-                scene.camera.background_color = config.background_color
-
-        case 0:
+        case _:
             colors = [
-                DARKER_GREY,
-                WHITE,
-                PURE_RED,
-                ManimColor("#052e16"),
-                ManimColor("#f97316"),
-            ]
-        case 1:
-            color = [
-                WHITE,
-                BLACK,
-                ManimColor("#F9BF09"),
-                ManimColor("#E43F49"),
-                ManimColor("#2a013d"),
-                ManimColor("#f97316"),
-            ]
-        case 2:
-            color = [
-                ManimColor.from_hex("#141c33"),
-                ManimColor.from_hex("#eff5fa"),
-                ManimColor.from_hex("#E43F49"),
-                ManimColor.from_hex("#2a013d"),
-                ManimColor.from_hex("#f97316"),
-            ]
-        case 3:
-            color = [
-                ManimColor.from_hex("#f1f1f1"),
-                ManimColor.from_hex("#F9BF09"),
-                ManimColor.from_hex("#E43F49"),
-                ManimColor.from_hex("#2a013d"),
-                ManimColor.from_hex("#f97316"),
-            ]
-        case 4:
-            color = [
-                ManimColor.from_hex("#f1f1f1"),
-                ManimColor.from_hex("#F9BF09"),
-                ManimColor.from_hex("#E43F49"),
-                ManimColor.from_hex("#2a013d"),
-                ManimColor.from_hex("#f97316"),
+                AVN_COLOR_PROFILE["dark" if dark_theme else "light"][i]
+                for i in AVN_COLOR_PROFILE.get("dark" if dark_theme else "light")
             ]
 
-    return tuple(colors)
+    Text.set_default(color=colors[1])
+    SingleStringMathTex.set_default(color=colors[1])
+    Tex.set_default(color=colors[1])
+    MarkupText.set_default(color=colors[1])
+    if isinstance(scene, Scene):
+        config.background_color = colors[0]
+        scene.camera.background_color = config.background_color
+    return colors
+
+
+if __name__ == "__main__":
+    print(rand_color("yt"))
