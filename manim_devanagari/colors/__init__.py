@@ -17,7 +17,7 @@ AVN_COLOR_PROFILE = {
         "cancel": ManimColor("#3F6212"),
     },
     "dark": {
-        "background": ManimColor("#1E293B"),
+        "background": ManimColor("#181818"),
         "color": WHITE,
         "primary": ManimColor("#4ADE80"),
         "secondary": ManimColor("#FDBA74"),
@@ -56,6 +56,9 @@ def rand_color(
     SingleStringMathTex.set_default(color=colors[1])
     Tex.set_default(color=colors[1])
     MarkupText.set_default(color=colors[1])
+    Circle.set_default(color=colors[1])
+    Line.set_default(color=colors[1])
+    Mobject.set_default(color=colors[1])
     if isinstance(scene, Scene):
         config.background_color = colors[0]
         scene.camera.background_color = config.background_color

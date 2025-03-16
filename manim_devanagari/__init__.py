@@ -1,6 +1,6 @@
 import textwrap
 from manim import *
-from typing import Sequence
+from typing import Sequence, Iterator, Iterable
 
 r"""
 \usepackage{fontspec}
@@ -229,6 +229,11 @@ class Deva_MathTex(MathTex):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, tex_template=_devanagari, **kwargs)
+
+
+class Deva_Matrix(Matrix):
+    def __init__(self, matrix: Iterable, **kwarges):
+        super().__init__(matrix, element_to_mobject=Deva_MathTex, **kwarges)
 
 
 class Deva_MathTex_Display(Deva_MathTex):
