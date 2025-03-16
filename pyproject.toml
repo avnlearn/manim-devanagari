@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "manim-devanagari"
-version = "0.2.0"
+version = "0.2.1"
 description = "Devanagari plugin for manim"
 authors = ["AvN Learn <avnlearn@gmail.com>"]
 license = "MIT"
