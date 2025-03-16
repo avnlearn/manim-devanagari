@@ -1,6 +1,6 @@
 from manim import *
 from manim_devanagari import Deva_MathTex, Deva_Tex
-from manim_devanagari.color import GREEN_SCREEN, BLUE_SCREEN
+from manim_devanagari.colors import GREEN_SCREEN, BLUE_SCREEN
 from manim.typing import Vector2D, Vector3D
 
 def Footer(
