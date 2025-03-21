@@ -3,6 +3,7 @@ from manim_devanagari import Deva_MathTex, Deva_Tex
 from manim_devanagari.colors import GREEN_SCREEN, BLUE_SCREEN
 from manim.typing import Vector2D, Vector3D
 
+
 def Footer(
     width: float = None,
     stroke_opacity: float = 0,
@@ -42,31 +43,45 @@ def Footer(
 
 
 class AvNLearnLogo(VGroup):
-    def __init__(self, font_size=40, **kwargs):
+    def __init__(self, font_size=40, dark_theme=False, **kwargs):
         super().__init__(**kwargs)
-        self.create_logo(font_size)
+        self.create_logo(font_size, dark_theme=dark_theme)
 
-    def create_logo(self, font_size):
+    def create_logo(self, font_size, dark_theme=False):
 
-        self.avn_text = Deva_Tex(r"\textbf{AvN}", font_size=font_size, color=GREEN_C)
-        
-        self.learn_text = Deva_Tex("learn", font_size=font_size - 15, color=ORANGE)
+        self.avn_text = Deva_Tex(
+            r"\textbf{AvN}",
+            font_size=font_size,
+            color=GREEN_E if dark_theme else GREEN_C,
+        )
+
+        self.learn_text = Deva_Tex(
+            "learn",
+            font_size=font_size - 15,
+            color=ORANGE.darker() if dark_theme else ORANGE,
+        )
         self.add(self.avn_text, self.learn_text)
         self.arrange(DOWN, buff=0.02)
-    
+
     @override_animation(Create)
-    def create(self, run_time:float=2):
+    def create(self, run_time: float = 2):
         return AnimationGroup(
             AddTextLetterByLetter(self.avn_text, run_time=run_time),
             TransformFromCopy(self.avn_text, self.learn_text, run_time=run_time - 0.6),
-            lag_ratio=0.1
+            lag_ratio=0.1,
         )
+
 
 class MobjectBackground(VGroup):
     def __init__(
         self,
         *mobject: Mobject,
-        bg_color: list[ParsableManimColor] = [ManimColor("#f97316"), ManimColor("#fb923c"), ManimColor("#16a34a"), ManimColor("#14532d")],
+        bg_color: list[ParsableManimColor] = [
+            ManimColor("#f97316"),
+            ManimColor("#fb923c"),
+            ManimColor("#16a34a"),
+            ManimColor("#14532d"),
+        ],
         bg_opacity: float = 1.0,
         bg_stroke_opacity: float = 0.0,
         bg_w_buff: float = MED_LARGE_BUFF,
@@ -84,7 +99,7 @@ class MobjectBackground(VGroup):
         mobject_g = Group(*mobject)
         bg_h = mobject_g.width if bg_h is None else bg_h
         bg_w = mobject_g.height if bg_w is None else bg_w
-        
+
         rect = RoundedRectangle(
             width=bg_w + bg_w_buff,  # Add some padding
             height=bg_h + bg_h_buff,  # Add some padding
@@ -97,12 +112,18 @@ class MobjectBackground(VGroup):
         self.add(
             rect,
             *mobject,
-            
         )
         if underline_color:
-            self.add(Underline(rect, color=underline_color, buff=buff, stroke_width=underline_width, stroke_opacity=underline_opacity))
-    
-   
+            self.add(
+                Underline(
+                    rect,
+                    color=underline_color,
+                    buff=buff,
+                    stroke_width=underline_width,
+                    stroke_opacity=underline_opacity,
+                )
+            )
+
 
 class AvnBackground(RoundedRectangle):
     def __init__(
@@ -146,10 +167,17 @@ class AvnBackground(RoundedRectangle):
             )
         )
 
+
 class TitleBackground(MobjectBackground):
     def __init__(
-        self, *tex: str, bold: bool = True, color: ParsableManimColor = WHITE,
-        bg_color: list[ParsableManimColor] = [ManimColor("#d97706"), ManimColor("#4d7c0f")],
+        self,
+        *tex: str,
+        bold: bool = True,
+        color: ParsableManimColor = WHITE,
+        bg_color: list[ParsableManimColor] = [
+            ManimColor("#d97706"),
+            ManimColor("#4d7c0f"),
+        ],
         underline_color: ParsableManimColor = YELLOW,
         font_size: int = 48,
         bg_buff: float = 0.0,
@@ -157,7 +185,7 @@ class TitleBackground(MobjectBackground):
         corner_radius: float = 0.0,
         aligned_edge: Vector3D = LEFT,
         buff: float = LARGE_BUFF,
-        **kwargs
+        **kwargs,
     ):
         # Create the title text
         if bold:
@@ -168,16 +196,19 @@ class TitleBackground(MobjectBackground):
             color=color,
             font_size=font_size,
         )
-        super().__init__(title, 
-        bg_color=bg_color, 
-        underline_color=underline_color, 
-        underline_opacity=1.0,
-        underline_width=6,
-        bg_h_buff=text_buff, bg_w_buff=bg_buff, 
-        corner_radius=corner_radius, 
-        bg_h=title.height, 
-        bg_w=config.frame_width,
-        **kwargs)
+        super().__init__(
+            title,
+            bg_color=bg_color,
+            underline_color=underline_color,
+            underline_opacity=1.0,
+            underline_width=6,
+            bg_h_buff=text_buff,
+            bg_w_buff=bg_buff,
+            corner_radius=corner_radius,
+            bg_h=title.height,
+            bg_w=config.frame_width,
+            **kwargs,
+        )
 
         title.to_edge(aligned_edge, buff=buff)
 
@@ -188,7 +219,10 @@ class SubtitleBackground(MobjectBackground):
         *tex: str,
         bold: bool = True,
         color: ParsableManimColor = DARKER_GRAY,
-        bg_color: list[ParsableManimColor] = [ManimColor("#fde047"), ManimColor("#bef264")],
+        bg_color: list[ParsableManimColor] = [
+            ManimColor("#fde047"),
+            ManimColor("#bef264"),
+        ],
         font_size: int = 40,
         bg_buff: float = MED_LARGE_BUFF,
         buff: float = MED_SMALL_BUFF,
@@ -204,17 +238,19 @@ class SubtitleBackground(MobjectBackground):
             color=color,
             font_size=font_size,
         )
-        super().__init__(title, 
-        bg_color=bg_color, 
-        underline_color=None, 
-        underline_opacity=1.0,
-        underline_width=6,
-        bg_h_buff=bg_buff, bg_w_buff=bg_buff + 2, 
-        corner_radius=corner_radius, 
-        bg_h=title.height, 
-        bg_w=title.width, **kwargs)
-        
-        
+        super().__init__(
+            title,
+            bg_color=bg_color,
+            underline_color=None,
+            underline_opacity=1.0,
+            underline_width=6,
+            bg_h_buff=bg_buff,
+            bg_w_buff=bg_buff + 2,
+            corner_radius=corner_radius,
+            bg_h=title.height,
+            bg_w=title.width,
+            **kwargs,
+        )
 
 
 class TexBackground(VGroup):
@@ -252,7 +288,6 @@ class TexBackground(VGroup):
             stroke_opacity=0,
             fill_color=ManimColor("#1e293b"),
             fill_opacity=0.6,
-            
         )
 
         # Position the rectangle behind the title
@@ -261,79 +296,78 @@ class TexBackground(VGroup):
         # bg_rect.next_to(rect.get_edge_center(DR), buff=SMALL_BUFF)
 
         # Add the rectangle and title to the group
-        self.add(
-            bg_rect,
-            rect,
-            title
-        )
-        
-
-
-
+        self.add(bg_rect, rect, title)
 
 
 class YouTube_Like_Subscribe_Comment(VGroup):
     def __init__(self, font_size=30, direction=DOWN, buff=LARGE_BUFF, **kwargs):
         super().__init__(**kwargs)
-        self.like_subscribe_comment(font_size, direction, buff)
+        self.like = Deva_Tex(r"\textbf{Like}", font_size=font_size)
+        self.subscribe = TexBackground(
+            r"\textbf{Subscribe}",
+            font_size=font_size,
+            bg_color=PURE_RED,
+            corner_radius=0.1,
+        )
+        self.comment = Deva_Tex(r"\textbf{Comment}", font_size=font_size)
+        self.share = Deva_Tex(r"\textbf{Share}", font_size=font_size)
+        self.seprater = Rectangle(
+            color=BS381.BRILLIANT_GREEN,
+            fill_opacity=1.0,
+            stroke_width=0,
+            width=0.02,
+            height=0.3,
+        )
 
-    def like_subscribe_comment(self, font_size, direction, buff):
-        self.add(Deva_Tex(r"\textbf{Like}", font_size=font_size))
         self.add(
-            Rectangle(
-                color=BS381.BRILLIANT_GREEN,
-                fill_opacity=1.0,
-                stroke_width=0,
-                width=0.02,
-                height=0.3,
-            )
+            self.like,
+            self.seprater.copy(),
+            self.subscribe,
+            self.seprater.copy(),
+            self.comment,
+            self.seprater.copy(),
+            self.share,
         )
-        self.add(
-            VGroup(
-                RoundedRectangle(
-                    color=PURE_RED,
-                    fill_opacity=1.0,
-                    width=0.9,
-                    height=0.3,
-                    corner_radius=0.05,
-                    stroke_color=PURE_RED,
-                ),
-                Deva_Tex(r"\textbf{Subscribe}", font_size=font_size),
-            )
-        )
-        self.add(
-            Rectangle(
-                color=BS381.BRILLIANT_GREEN,
-                fill_opacity=1.0,
-                stroke_width=0,
-                width=0.02,
-                height=0.3,
-            )
-        )
-        self.add(Deva_Tex(r"\textbf{Comment}", font_size=font_size))
-        self.add(
-            Rectangle(
-                color=BS381.BRILLIANT_GREEN,
-                fill_opacity=1.0,
-                stroke_width=0,
-                width=0.02,
-                height=0.3,
-            )
-        )
-        self.add(Deva_Tex(r"\textbf{Share}", font_size=font_size))
         self.arrange(buff=MED_SMALL_BUFF)
         self.to_edge(direction, buff=buff)
 
+    @override_animation(Create)
+    def create(self, run_time: float = 2):
+        return AnimationGroup(
+            Add(self[1], self[3], self[5], run_time=run_time / 4),
+            Indicate(self.like, color=TEAL_A, run_time=run_time / 3),
+            TransformFromCopy(self.like, self.subscribe, run_time=run_time / 2),
+            Write(self.comment, run_time=run_time - 0.8),
+            FadeIn(self.share, run_time=run_time - 0.8),
+            lag_ratio=0.8,
+        )
+
+
+class FullScreenCover(Rectangle):
+    def __init__(self, buff: int = 0, **kwarges):
+        super().__init__(
+            height=config.frame_height - buff,
+            width=config.frame_width - buff,
+            **kwarges,
+        )
+
+
 class Background(Rectangle):
-    def __init__(self, buff:int=0, **kwarges):
-        super().__init__(height=config.frame_height - buff, width=config.frame_width - buff, **kwarges)
+    def __init__(self, buff: int = 0, **kwarges):
+        super().__init__(
+            height=config.frame_height - buff,
+            width=config.frame_width - buff,
+            **kwarges,
+        )
+
 
 class GREEN_Background(Background):
-    def __init__(self,color=GREEN_SCREEN, **kwarges):
-        super().__init__(color=color, fill_color=color, fill_opacity=1.0,**kwarges)
+    def __init__(self, color=GREEN_SCREEN, **kwarges):
+        super().__init__(color=color, fill_color=color, fill_opacity=1.0, **kwarges)
+
 
 class BLUE_Background(Background):
-    def __init__(self,color=BLUE_SCREEN, **kwarges):
+    def __init__(self, color=BLUE_SCREEN, **kwarges):
         super().__init__(color=color, fill_color=color, fill_opacity=1.0, **kwarges)
 
 
@@ -577,7 +611,7 @@ def video_font_size(key=config["quality"], font_size=20):
                 bracket_h_buff=SMALL_BUFF,
                 bracket_v_buff=SMALL_BUFF,
             )
-    
+
     header_font_size = font_size + 10
     Text.set_default(font_size=font_size - 5, font="sans-serif")
     MarkupText.set_default(font_size=font_size - 7, font="sans-serif")
